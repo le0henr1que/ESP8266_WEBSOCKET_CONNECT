@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"content="width-device-width,initial-scale-1.0">
+  <meta http-equiv="X-UA-Compatible"content="ie-edge">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js" integrity="sha512-9mpsATI0KClwt+xVZfbcf2lJ8IFBAwsubJ6mI3rtULwyM3fBmQFzj0It4tGqxLOGQwGfJdk/G+fANnxfq9/cew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <link rel="stylesheet" href="style.css">
+  <title>Chat da Baguncinha</title>
+  
+</head>
+<body>
+ 
+    <button id="ligar">Ligar</button>
+    <button id="desligar">Desligar</button>
+  <script type="text/javascript">
+
+      var socket = new WebSocket('ws://192.168.15.9:81');
+     
+        // Escutar evento de conexão
+        socket.addEventListener('open', function(event) {
+          console.log('Conectado ao servidor WebSocket!');
+          
+          // Enviar mensagem para o servidor
+          $("#ligar").click(() => socket.send('ligar'))
+          $("#desligar").click(() => socket.send('desligar'))
+        });
+
+        // Escutar evento de mensagem recebida do servidor
+        socket.addEventListener('message', function(event) {
+          console.log('Mensagem recebida do servidor: ' + event.data);
+        });
+
+  </script>
+</body>
+</html>
